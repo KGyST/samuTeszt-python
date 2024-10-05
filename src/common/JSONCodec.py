@@ -10,9 +10,9 @@ class JSONCodec(ICodec):
     sExt = ".json"
     _module = ""
 
-    PY_OBJECT = 'py/object'
-    PY_FUNCTION = 'py/function'
-    PY_TYPE = 'py/type'
+    OBJECT_PY = 'py/object'
+    FUNCTION_PY = 'py/function'
+    TYPE_PY = 'py/type'
 
     @staticmethod
     def read(path: str) -> 'FunctionState':
@@ -47,7 +47,7 @@ class JSONCodec(ICodec):
     @staticmethod
     def find_and_import_classes(path: str):
         """
-        Import modules that define classes dumped in test cases
+        Imports modules that define classes dumped in test cases
         Recursively calls _find_and_import_classes
         :param path: test case data file path
         :return: None
@@ -66,8 +66,8 @@ class JSONCodec(ICodec):
         import importlib
 
         if isinstance(importData, dict):
-            if JSONCodec.PY_OBJECT in importData:
-                class_path = importData[JSONCodec.PY_OBJECT]
+            if JSONCodec.OBJECT_PY in importData:
+                class_path = importData[JSONCodec.OBJECT_PY]
                 module_name, class_name = class_path.rsplit('.', 1)
                 try:
                     module = importlib.import_module(module_name)

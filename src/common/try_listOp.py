@@ -4,7 +4,7 @@ _result = []
 for item in _list:
     _result = [item, *_result]
 
-_result = _list[::-1]
+_result = _list[:   :-2]
 
 _result = {}
 

@@ -57,7 +57,7 @@ def contentBasedHash(obj: Any) -> int:
                     hash_value ^= fnv1a_hash(obj.__dict__[key], key)
         elif hasattr(obj, '__slots__'):
             for slot in sorted(obj.__slots__):
-                # just for uninitalized __slots__ right after __new__
+                # just for uninitalized __slots__ right after __new__:
                 if hasattr(obj, slot):
                     hash_value ^= fnv1a_hash(getattr(obj, slot), slot)
         elif isinstance(obj, dict):
@@ -83,3 +83,4 @@ def contentBasedHash(obj: Any) -> int:
         return None
     else:
         return _result
+

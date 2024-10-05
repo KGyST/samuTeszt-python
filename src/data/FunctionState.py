@@ -5,7 +5,12 @@ from samuTeszt.src.common.constants import MAIN, ENCODING
 from samuTeszt.src.common.privateFunctions import _get_calling_module_name
 from samuTeszt.src.data.Equatable import Equatable, contentBasedHash
 
+STATE_PY = 'py/state'
 HASH_PY = "py/hash"
+OBJECT_PY = 'py/object'
+TYPE_PY = 'py/type'
+TUPLE_PY = 'py/tuple'
+SET_PY = 'py/set'
 
 
 class FunctionState(Equatable):
@@ -129,11 +134,11 @@ class FunctionState(Equatable):
                 if isinstance(obj, type):
                     if obj.__module__ == MAIN:
                         obj.__module__ = _get_calling_module_name()
-                    result = {**_dHash, 'py/type': f"{obj.__module__}.{obj.__name__}", }
+                    result = {**_dHash, TYPE_PY: f"{obj.__module__}.{obj.__name__}", }
                 else:
                     if obj.__class__.__module__ == MAIN:
                         obj.__class__.__module__ = _get_calling_module_name()
-                    result = {**_dHash, 'py/object': f"{obj.__class__.__module__}.{obj.__class__.__name__}", }
+                    result = {**_dHash, OBJECT_PY: f"{obj.__class__.__module__}.{obj.__class__.__name__}", }
                 if hasattr(obj, '__slots__'):
                     # FIXME __slots__ currently cannot be hashed
                     if HASH_PY in result:
@@ -155,9 +160,9 @@ class FunctionState(Equatable):
             elif isinstance(obj, list):
                 return [_flatten(item) for item in obj if _isFlattable(item)]
             elif isinstance(obj, tuple):
-                return {**_dHash, 'py/tuple': [_flatten(item) for item in obj if _isFlattable(item)]}
+                return {**_dHash, TUPLE_PY: [_flatten(item) for item in obj if _isFlattable(item)]}
             elif isinstance(obj, set):
-                return {**_dHash, 'py/set': [_flatten(item) for item in obj if _isFlattable(item)]}
+                return {**_dHash, SET_PY: [_flatten(item) for item in obj if _isFlattable(item)]}
             elif isinstance(obj, bytes):
                 return obj.decode(ENCODING)
             # if _hash:
@@ -165,8 +170,8 @@ class FunctionState(Equatable):
             return obj
 
         state = {
-            'py/object': f"{self.__class__.__module__}.{self.__class__.__name__}",
-            'py/state':
+            OBJECT_PY: f"{self.__class__.__module__}.{self.__class__.__name__}",
+            STATE_PY:
                 {
                     'function': self.function,
                     'className': self.className,

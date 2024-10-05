@@ -3,7 +3,7 @@ from samuTeszt.src.data.Equatable import contentBasedHash
 from pprint import pprint
 
 
-HASH = "py/hash"
+HASH_PY = "py/hash"
 
 
 class ClassToBeNested:
@@ -23,12 +23,12 @@ class ClassTestee:
                 _dict = obj
             _hash = contentBasedHash(obj)
             if _hash in _sHash:
-                return {HASH: _hash}
+                return {HASH_PY: _hash}
 
             if _dict:
                 for k, v in _dict.items():
                     _dict[k] = _setHash(v)
-                _dict[HASH] = _hash
+                _dict[HASH_PY] = _hash
             elif isinstance(obj, list):
                 obj = list(map(_setHash, obj))
             _sHash.add(_hash)
@@ -59,11 +59,11 @@ class ClassTestee:
             else:
                 return obj
 
-            if not HASH in _dict:
+            if not HASH_PY in _dict:
                 return obj
             else:
-                _hash = _dict[HASH]
-                _dict.pop(HASH)
+                _hash = _dict[HASH_PY]
+                _dict.pop(HASH_PY)
 
             for key, value in _dict.items():
                 _dict[key] = _getHash(value)
