@@ -18,7 +18,6 @@ Advantages of this approach:
 - As they are data records, it is possible to put them into a database.
 
 ## TODOs
-
 - Resilient testing: a test failure shouldn't crash the whole testing, exception handling
   - Logging facility integration instead of prints
 - Expanding testable objects' range:
@@ -41,10 +40,11 @@ Advantages of this approach:
   - Dumping into a database instead of files (Mongo)
 - `current.json` issues rotating (.001, .002 etc)
   - Driving it through a local bool variable
-- `@JSONFunctionDumper` to be able to be run as `@JSONFunctionDumper` (not only as `@JSONFunctionDumper()`)
+- `@JSONFunctionDumper` to be able to be run as `@JSONFunctionDumper` (a function, not only as `@JSONFunctionDumper()` an object instance)
 - If `tests` is not a subfolder of the tested function, it's not possible to import the module (no `folder.module`)
-- A `isValid()` function for all Codecs (`tryToInterpret()`)
-
+- A `isValid()` function for all Codecs (aka `tryToInterpret()`)
+- Dumper -> Recorder/Player rename
+- Handling circural references
 
 ---
 
@@ -58,8 +58,12 @@ Advantages of this approach:
     - Dividing testable and non-testable stuff for self-testing
 - ObjectWalker class: serializing an object
 - `py/json`
-- Listening whether an arg is changed and only deepcopy it if changed
+- Listening whether an arg is changed and only deepcopy it if changed.
+- Emptied classes: purge every data that is not direclty needed. Maybe it is needed in the Player
+- Watchdog support: when a "Stop button" is pressed in the IDE while stepping, dumping out the class.
+- Diffing itrables
+- Testing generators, GeneratorState object
 
 ## Version history
 - 0.02: 231123 Object-oriented functions except for class attributes and `__new__()` 
-- 0.03: 240913 Redesign + more object-oriented functions except for properties 
+- 0.03: 240913 Redesign + more object-oriented functions except for Property handling

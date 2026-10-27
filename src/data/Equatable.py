@@ -20,7 +20,7 @@ class Equatable:
         return contentBasedHash(self)
 
 
-def contentBasedHash(obj: Any) -> int:
+def contentBasedHash(obj: Any) -> [int, NoneType]:
     """
     Generates a content-based hash value for an object.
 
@@ -34,6 +34,11 @@ def contentBasedHash(obj: Any) -> int:
     MASK = 0xffffffff
 
     def fnv1a_hash(value, key=None):
+        """
+        :param value:
+        :param key:
+        :return:
+        """
         assert isinstance(key, (str, NoneType))
         hash_value = HASH_OF_NONE
         hash_value ^= _contentBasedHash(value)

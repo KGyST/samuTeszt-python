@@ -1,8 +1,8 @@
-from samuTeszt.src.decorator.decorators import Dumper
+from samuTeszt.src.decorator.decorators import Recorder
 from samuTeszt.examples.helpers import ZeroDivisionErrorCatcher
 
 
-@Dumper()
+@Recorder()
 @ZeroDivisionErrorCatcher
 def funcTestee(number):
     return 1 / number

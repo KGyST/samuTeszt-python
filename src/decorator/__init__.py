@@ -1,2 +1,2 @@
-from .decorators import Dumper
+from .decorators import Recorder
 

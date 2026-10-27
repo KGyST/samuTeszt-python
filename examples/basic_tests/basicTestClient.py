@@ -1,4 +1,4 @@
-from samuTeszt.src.decorator.decorators import Dumper
+from samuTeszt.src.decorator.decorators import Recorder
 from samuTeszt.examples.helpers import ZeroDivisionErrorCatcher
 
 # glob_variable = 1
@@ -9,25 +9,25 @@ isFuncTesteeWithMultipleReturnValues = True
 # ----------------------------------------------------
 
 
-@Dumper(active=isFuncTesteeActive)
+@Recorder(active=isFuncTesteeActive)
 @ZeroDivisionErrorCatcher
 def funcTestee(number):
     return 1 / number
 
-@Dumper(active=isFuncTesteeWithMultipleReturnValues)
+@Recorder(active=isFuncTesteeWithMultipleReturnValues)
 @ZeroDivisionErrorCatcher
 def funcTesteeWithMultipleReturnValues(number):
     return number, 1 / number
 
-@Dumper(active=True)
+@Recorder(active=True)
 def simplestFunction(number):
     return 1+number
 
-@Dumper()
+@Recorder()
 def calledFunction(number):
     return number + 1
 
-@Dumper(active=True)
+@Recorder(active=True)
 def callerFunction(number):
     return calledFunction(number)
 

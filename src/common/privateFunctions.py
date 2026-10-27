@@ -96,9 +96,9 @@ def _get_original_function(func: 'Callable') -> 'Callable':
     :param func: The decorated function or bound method
     :return: The original undecorated function
     """
-    from samuTeszt.src.decorator.decorators import _Dumper
+    from samuTeszt.src.decorator.decorators import _Recorder
 
-    if hasattr(func, '__self__') and isinstance(func.__self__, _Dumper):
+    if hasattr(func, '__self__') and isinstance(func.__self__, _Recorder):
         return func.__self__.func
 
     # If it's a method wrapped by a decorator like `Dumper`, it might have a __wrapped__ attribute

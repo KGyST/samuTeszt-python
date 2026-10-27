@@ -1,5 +1,5 @@
 
-from samuTeszt.src.decorator.decorators import Dumper
+from samuTeszt.src.decorator.decorators import Recorder
 
 
 # ------- Global settings example --------------------
@@ -37,24 +37,24 @@ class ClassTestee:
     __slots__ = ('instance_variable', 'nestedInstance', '_someProperty', '_somePrivateMember', )
     classVariable = 0
 
-    @Dumper(active=isFunctionDumperActive)
+    @Recorder(active=isFunctionDumperActive)
     def __new__(cls, *args, **kwargs):
         _instance = super().__new__(cls)
         _instance.__class__.classVariable += 1
         return _instance
 
-    @Dumper(active=isFunctionDumperActive)
+    @Recorder(active=isFunctionDumperActive)
     def __init__(self, param):
         self.instance_variable = param
         self.nestedInstance = ClassToBeNested()
         self._someProperty = param
         self._somePrivateMember = param
 
-    @Dumper()
+    @Recorder()
     def __str__(self) -> str:
         return f'ClassTestee: {str(self.instance_variable)}'
 
-    @Dumper()
+    @Recorder()
     @classmethod
     def class_method(cls, param=1) -> str:
         print(f"BEGIN class_method, ClassTestee.classVariable = {ClassTestee.classVariable}")
@@ -62,13 +62,13 @@ class ClassTestee:
         print(f"END class_method, ClassTestee.classVariable = {ClassTestee.classVariable}")
         return "classmethod called"
 
-    @Dumper()
+    @Recorder()
     @staticmethod
     def static_method(param=1) -> str:
         print(f"static_method called {param}")
         return "staticmethod called"
 
-    @Dumper()
+    @Recorder()
     def member_method(self, param=1):
         print(f"BEGIN member_method called, instance_variable = {self.instance_variable}")
         # self.instance_variable += ClassTestee.classVariable + p_var
@@ -76,7 +76,7 @@ class ClassTestee:
         print(f"END member_method called, instance_variable = {self.instance_variable}")
         return self.instance_variable
 
-    @Dumper(active=True, exceptions=(ExampleException, ))
+    @Recorder(active=True, exceptions=(ExampleException,))
     def member_method_that_throws_exception(self):
         print(f"member_method_that_throws_exception called, instance_variable = {self.instance_variable}")
         raise ExampleException()
@@ -106,7 +106,7 @@ class ClassTestee:
     # FIXME assertions
 
 
-@Dumper()
+@Recorder()
 def some_function(param="Nothing"):
     print(f"some_function called, param = {param}")
     print(param)
